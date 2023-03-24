@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import reportWebVitals from './reportWebVitals';
-import Dashboard from './components/pertemuan-2/sample-ui';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoute from './components/pertemuan-3/apps/AppRoute';
 
+const { PUBLIC_URL } = process.env;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Dashboard />
+    <BrowserRouter basename={PUBLIC_URL}>
+      <AppRoute />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

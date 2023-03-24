@@ -49979,3 +49979,10 @@ body {
 .sticky-item input:focus{
     outline: none;
 }
+
+
+#main-nav .navbar-nav > li > a.active{
+    background-color: rgb(13 110 253 / 23%);
+    border-radius: 5px;
+    font-weight: bold;
+}
