@@ -21,6 +21,16 @@ export default function AppRoute() {
             </Route>
             <Route path='messages' element={<Layouts><Messages /></Layouts>} />
             <Route path='profile' element={<Layouts><Profiles /></Layouts>} />
+            <Route path='*' element={<Layouts><Eror404 /></Layouts>} />
         </Routes>
+    )
+}
+
+
+const Eror404 = () => {
+    return (
+        <div className='container'>
+            <h1>Error 404</h1>
+        </div>
     )
 }
