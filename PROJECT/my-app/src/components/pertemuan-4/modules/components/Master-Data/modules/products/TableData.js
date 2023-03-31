@@ -1,6 +1,9 @@
 import React from "react";
-export default function TableData() {
-  const ItemProduct = () => {
+import AlertInfo from "../../../../../layouts/components/alerts/AlertInfo";
+import { formatRupiah } from "../../../Library/MyHelper";
+
+export default function TableData({ data }) {
+  const ItemProduct = ({ item }) => {
     return (
       <div className="card item mb-8">
         <div className="card-body p-0">
@@ -12,8 +15,8 @@ export default function TableData() {
             />
           </div>
           <div className="desc">
-            <p className="title ps-7 mb-2 px-2">Title Product</p>
-            <p className="fw-bolder mb-2 px-2 fs-6">Rp 0</p>
+            <p className="title ps-7 mb-2 px-2">{item.name}</p>
+            <p className="fw-bolder mb-2 px-2 fs-6">{formatRupiah(item.price,"Rp. ")}</p>
             <p className="location px-2 mb-2">
               <i className="bi bi-pin-map-fill"></i>
               <span className="ms-2">Kota Bogor</span>
@@ -22,7 +25,7 @@ export default function TableData() {
               <div className="d-flex justify-content-start align-items-center">
                 <div className="stock me-2">
                   <i className="bi bi-star-fill"></i>
-                  <span className="ms-2">Stock 10</span>
+                  <span className="ms-2">Stock {item.stock}</span>
                 </div>
                 <div className="sold border-start px-2">
                   <span className="text-muted">Terjual 100+</span>
@@ -38,9 +41,17 @@ export default function TableData() {
   return (
     <div className="list-product">
       <div className="row">
-        <div className="col-3">
-          <ItemProduct />
-        </div>
+        {Object.values(data).length > 0 ? (
+          data.map((v, index) => (
+            <div className="col-3" key={index}>
+              <ItemProduct item={v} />
+            </div>
+          ))
+        ) : (
+          <div className="col-12">
+            <AlertInfo message={"No record found"} variant="info" />
+          </div>
+        )}
       </div>
     </div>
   );

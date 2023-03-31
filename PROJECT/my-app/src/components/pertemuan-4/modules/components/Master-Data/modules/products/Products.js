@@ -1,16 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import LoadingSpin from "../../../../../layouts/components/loadings/LoadingSpin";
+import CallAxios from "../../../Library/CallAxios";
 import { Form } from "./Form";
 import TableData from "./TableData";
 
 export function Products() {
-  
+  const [paramProduct, setParamProduct] = useState({
+    loading: false,
+    data: [],
+    message: "",
+  });
+
+  const GET_ALL_PRODUCT = () => {
+    setParamProduct({...paramProduct, loading:true});
+    const postData = {
+        method: "GET",
+        url:"http://localhost:8080/api/products",
+        headers:{'Content-Type':'application/json'}
+    };
+    CallAxios(postData).then((response) => {
+        //console.log(response);
+        if(response.error){
+            setParamProduct({...paramProduct, loading:false, message:response.error});
+        }else{
+            let results = response.data;
+            if(results){
+                setParamProduct({...paramProduct, loading:false, message:"", data:results});
+            }else{
+                setParamProduct({...paramProduct, loading:false, message:"No record found"});
+            }
+        }
+    })
+  };
+
+  useEffect(()=>{
+    GET_ALL_PRODUCT();
+  },[]);
+
   return (
     <div id="product-master">
       <div className="row">
         <div className="col-sm-12 col-lg-8">
           <div className="d-flex flex-wrap flex-stack pb-7">
             <div className="d-flex flex-wrap align-items-center my-1">
-              <h3 className="fw-bolder me-5 my-1">0 items of product</h3>
+              <h3 className="fw-bolder me-5 my-1">{Object.values(paramProduct.data).length} items of product</h3>
             </div>
             <div className="d-flex flex-wrap my-1">
               <div className="d-flex my-0">
@@ -35,12 +68,13 @@ export function Products() {
             </div>
           </div>
          
-          <div className="product-items ">
-            <TableData/>
+         {(paramProduct.loading) ? <LoadingSpin /> : ''}
+          <div className={"product-items "+((paramProduct.loading) ? "d-none":"")}>
+            <TableData data={paramProduct.data} />
           </div>
         </div>
         <div className="col-sm-12 col-lg-4">
-          <Form />
+          <Form GET_ALL_PRODUCT={GET_ALL_PRODUCT} />
         </div>
       </div>
     </div>
