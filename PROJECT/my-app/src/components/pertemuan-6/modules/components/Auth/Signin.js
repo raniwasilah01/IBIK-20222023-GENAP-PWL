@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Form from './Form'
+import ModalPopUp from '../../../layouts/components/modals/ModalPopUp'
 
 export default class Signin extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class Signin extends Component {
                 </div>
             </div>
         </div>
+        <ModalPopUp />
       </div>
 
     )
