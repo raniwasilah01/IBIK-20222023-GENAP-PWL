@@ -8,35 +8,34 @@ export function Form(props) {
     description: "",
     stock: 0,
     price: "",
-    images:"",
     is_active: 1,
   });
   const [selectedImg, setSelectedImg] = useState("");
 
   const submitForm = (e) =>{
     e.preventDefault();
-    let img = UploadImages(postData.images);
-    console.log(img);
-    return null;
-    // const param = {
-    //     method: "POST",
-    //     url:"http://localhost:8080/api/products",
-    //     headers:{'Content-Type':'application/json',"Content-type": "multipart/form-data"},
-    //     data:postData
-    // };
-    // CallAxios(param).then((response) => {
-    //     if(response.error){
-    //         openModal({header:"Error", message:response.error});
-    //     }else{
-    //         let results = response.data;
-    //         if(results){
-    //             openModal({header:"Info", message:"Successfully submited"});
-    //             props.GET_ALL_PRODUCT();
-    //         }else{
-    //             openModal({header:"Error", message:"Failed submit"});
-    //         }
-    //     }
-    // })
+    // let img = UploadImages(postData.images);
+    // console.log(img);
+    // return null;
+    const param = {
+        method: "POST",
+        url:"http://localhost:8080/api/products",
+        headers:{'Content-Type':'application/json'},
+        data:postData
+    };
+    CallAxios(param).then((response) => {
+        if(response.error){
+            openModal({header:"Error", message:response.error});
+        }else{
+            let results = response.data;
+            if(results){
+                openModal({header:"Info", message:"Successfully submited"});
+                props.GET_ALL_PRODUCT();
+            }else{
+                openModal({header:"Error", message:"Failed submit"});
+            }
+        }
+    })
   }
 
   const UploadImages = (file) =>{
@@ -86,7 +85,7 @@ export function Form(props) {
         </div>
       </div>
       <div className="card-body pt-0">
-        <form method="post" autoComplete="off" id="form-product" onSubmit={(e)=>submitForm(e)} cType="multipart/form-data">
+        <form method="post" autoComplete="off" id="form-product" onSubmit={(e)=>submitForm(e)}>
           <div className="mb-3">
             <label className="form-label">Name</label>
             <input type="text" name="name" className="form-control" defaultValue={postData.name} onChange={(e)=>setPostData({...postData, name:e.target.value})} />
@@ -113,11 +112,11 @@ export function Form(props) {
             </div>
           </div>
 
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label className="form-label">Images</label>
             <input type="file" name="image" className="form-control" defaultValue={postData.images} onChange={(e)=>handlerImages(e)} />
             <img src={(selectedImg) ? URL.createObjectURL(selectedImg) : require("../../../../../assets/media/products/icon-images.png") } className="w-100px h-100px border rounded mt-4" alt="product-img" />
-          </div>
+          </div> */}
 
 
           <div className="text-end mt-3">

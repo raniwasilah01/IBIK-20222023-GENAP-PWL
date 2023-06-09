@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import Widget1 from './Widget1'
 
 export default class Home extends Component {
   render() {
     return (
       <div className='container'>
-        <h1>Hello this is a HOME page</h1>
-        <p className="text-center">
-          Clik <Link to="/profile">here</Link> to access the profile page.
-        </p>
+        <h1>This is a Home page</h1>
+        <Widget1 name={""} />
       </div>
     )
   }

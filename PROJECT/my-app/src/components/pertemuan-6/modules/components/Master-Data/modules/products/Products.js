@@ -5,6 +5,7 @@ import { Form } from "./Form";
 import TableData from "./TableData";
 
 export function Products() {
+  const [listProduct, setListProduct] = useState("");
   const [paramProduct, setParamProduct] = useState({
     loading: false,
     data: [],
@@ -25,6 +26,7 @@ export function Products() {
         }else{
             let results = response.data;
             if(results){
+                setListProduct(results)
                 setParamProduct({...paramProduct, loading:false, message:"", data:results});
             }else{
                 setParamProduct({...paramProduct, loading:false, message:"No record found"});
@@ -70,7 +72,7 @@ export function Products() {
          
          {(paramProduct.loading) ? <LoadingSpin /> : ''}
           <div className={"product-items "+((paramProduct.loading) ? "d-none":"")}>
-            <TableData data={paramProduct.data} />
+            <TableData data={listProduct} />
           </div>
         </div>
         <div className="col-sm-12 col-lg-4">
