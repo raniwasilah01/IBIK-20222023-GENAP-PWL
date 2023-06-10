@@ -1,12 +1,19 @@
 import React from 'react'
+import jwt_decode from "jwt-decode";
 import { NavLink } from 'react-router-dom';
 
 export default function HeaderNav() {
+    //var AuthToken = sessionStorage.getItem("mytoken");
+    var AuthToken = localStorage.getItem("mytoken");
+    const AuthDecode = AuthToken ? jwt_decode(AuthToken) : [];
+    
+    
     const menuList = [{ id: 1, name: "Home", path: "/home", icon:"bi-house-door" },
                       { id: 2, name: "Explore", path: "/explore", icon:"bi-compass" },
                       { id: 3, name: "Messages", path: "/messages", icon:"bi-send" },
                       { id: 4, name: "Master Data", path: "/master-data", icon:"bi-database" },
-                      { id: 5, name: "Log Out", path: "/log-out", icon:"bi-box-arrow-left" }];
+                      { id: 5, name: "Hi, "+AuthDecode.identity.firstname, path: "#", icon:"bi-people" },
+                      { id: 6, name: "Log Out", path: "/log-out", icon:"bi-box-arrow-left" }];
     return (
         <header>
             <nav className="navbar navbar-expand-md fixed-top shadow bg-white">

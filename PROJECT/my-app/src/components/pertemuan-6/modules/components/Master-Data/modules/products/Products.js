@@ -70,10 +70,11 @@ export function Products() {
             </div>
           </div>
          
-         {(paramProduct.loading) ? <LoadingSpin /> : ''}
+         {/* {(paramProduct.loading) ? <LoadingSpin /> : ''}
           <div className={"product-items "+((paramProduct.loading) ? "d-none":"")}>
             <TableData data={listProduct} />
-          </div>
+          </div> */}
+          <TableData data={listProduct} />
         </div>
         <div className="col-sm-12 col-lg-4">
           <Form GET_ALL_PRODUCT={GET_ALL_PRODUCT} />

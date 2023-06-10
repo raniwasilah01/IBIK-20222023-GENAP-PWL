@@ -35,7 +35,11 @@ export default function Form() {
         .then((response) => {
           let results = response.data;
           setPostAuth({ loading: false, data: results });
-          localStorage.setItem("mytoken",results);
+          //Session Storage
+          //sessionStorage.setItem("mytoken",JSON.stringify(results.id_token));
+          //Local storage
+          localStorage.setItem("mytoken",JSON.stringify(results.id_token));
+          window.location = "/home";
         })
         .catch((error) => {
           setPostAuth({ loading: false, data: [], message:error.message });
